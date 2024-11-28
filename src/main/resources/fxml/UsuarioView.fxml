@@ -8,7 +8,7 @@
 
 <VBox xmlns="http://javafx.com/javafx/20.0.1"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.simulador.prueba.controllers.UsuarioController"
+      fx:controller="com.simulator.controllers.UsuarioController"
       spacing="10" alignment="CENTER">
     <Label text="Nombre:"/>
     <TextField fx:id="nombreField"/>
