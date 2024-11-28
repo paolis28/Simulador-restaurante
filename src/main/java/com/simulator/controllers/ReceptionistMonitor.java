@@ -1,14 +1,14 @@
 package com.simulator.controllers;
 
+import com.simulator.config.Config;
 import com.simulator.models.Comensal;
 import com.simulator.models.EstadoComensal;
 
-public class RestauranteMonitor {
-    private static final int AFORO_MAXIMO = 20;
+public class ReceptionistMonitor { 
     private int comensalesActuales;
     private boolean recepcionistaOcupado;
 
-    public RestauranteMonitor() {
+    public ReceptionistMonitor() {
         this.comensalesActuales = 0;
         this.recepcionistaOcupado = false;
     }
@@ -23,7 +23,7 @@ public class RestauranteMonitor {
         recepcionistaOcupado = true;
         
         // Verificar si hay espacio disponible
-        if (comensalesActuales >= AFORO_MAXIMO) {
+        if (comensalesActuales >= Config.AFORO_MAXIMO) {
             recepcionistaOcupado = false;
             notifyAll();
             return false;
