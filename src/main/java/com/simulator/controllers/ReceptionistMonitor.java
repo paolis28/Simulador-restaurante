@@ -33,6 +33,9 @@ public class ReceptionistMonitor {
         comensalesActuales++;
         comensal.setEstado(EstadoComensal.EN_RESTAURANTE);
         
+        // Imprimir el aforo actual después de que el comensal entra
+        System.out.println("Comensal " + comensal.getId() + " ha entrado al restaurante. Aforo actual: " + comensalesActuales + "/" + Config.AFORO_MAXIMO);
+        
         // Liberar al recepcionista
         recepcionistaOcupado = false;
         notifyAll();
@@ -40,8 +43,10 @@ public class ReceptionistMonitor {
     }
 
     public synchronized void salirRestaurante() {
-        comensalesActuales--;
-        notifyAll();
+        comensalesActuales--; // Decrementar el número de comensales actuales
+        // Imprimir el aforo actual después de que el comensal sale
+        System.out.println("Un comensal ha salido. Aforo actual: " + comensalesActuales + "/" + Config.AFORO_MAXIMO);
+        notifyAll(); // Notificar a otros hilos
     }
 
     public synchronized int getComensalesActuales() {

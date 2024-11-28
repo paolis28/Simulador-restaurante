@@ -5,12 +5,14 @@ import java.util.List;
 
 import com.simulator.config.Config;
 import com.simulator.controllers.ReceptionistMonitor;
+import com.simulator.controllers.RestaurantMonitor;
 import com.simulator.models.Comensal;
 import com.simulator.utils.PoissonDistribution;
 
 public class Main {
     public static void main(String[] args) {
-        ReceptionistMonitor restaurante = new ReceptionistMonitor();
+        ReceptionistMonitor recepcionista = new ReceptionistMonitor();
+        RestaurantMonitor restaurante = new RestaurantMonitor();
         List<Thread> hilosComensales = new ArrayList<>();
         PoissonDistribution poissonDist = new PoissonDistribution(Config.LAMBDA); // Usar Config.LAMBDA
 
@@ -23,14 +25,15 @@ public class Main {
                     boolean pudoEntrar = false;
                     // Seguir intentando hasta lograr entrar
                     while (!pudoEntrar) {
-                        pudoEntrar = restaurante.intentarEntrar(comensal);
+                        pudoEntrar = recepcionista.intentarEntrar(comensal);
                         if (pudoEntrar) {
-                            System.out.println("Comensal " + comensal.getId() + " ha entrado al restaurante. Aforo actual: " + restaurante.getComensalesActuales() + "/" + Config.AFORO_MAXIMO); // Usar Config.AFORO_MAXIMO
+                            // System.out.println("Comensal " + comensal.getId() + " ha entrado al restaurante. Aforo actual: " + recepcionista.getComensalesActuales() + "/" + Config.AFORO_MAXIMO); // Usar Config.AFORO_MAXIMO
+                            restaurante.intentarPedir(comensal);
                             Thread.sleep((long) (Math.random() * 5000));
-                            restaurante.salirRestaurante();
-                            System.out.println("Comensal " + comensal.getId() + " ha salido del restaurante. Aforo actual: " + restaurante.getComensalesActuales() + "/" + Config.AFORO_MAXIMO); // Usar Config.AFORO_MAXIMO
+                            recepcionista.salirRestaurante();
+                            // System.out.println("Comensal " + comensal.getId() + " ha salido del restaurante. Aforo actual: " + recepcionista.getComensalesActuales() + "/" + Config.AFORO_MAXIMO); // Usar Config.AFORO_MAXIMO
                         } else {
-                            System.out.println("Comensal " + comensal.getId() + " ha de esperar, restaurante lleno");
+                            // System.out.println("Comensal " + comensal.getId() + " ha de esperar, restaurante lleno");
                             Thread.sleep(1000); // Esperar un momento antes de volver a intentar
                         }
                     }
